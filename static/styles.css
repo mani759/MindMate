@@ -1,0 +1,289 @@
+/* GLOBAL */
+
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f4f8f6;
+    display:flex;
+    flex-direction:column;
+    height:100vh;
+}
+
+/* NAVBAR */
+.menu-btn{
+display:none;}
+.home-nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:black;
+    padding:15px 25px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo{
+    font-size:20px;
+    font-weight:bold;
+    color:#2d6a4f;
+}
+
+.nav-btn{
+    text-decoration:none;
+    background:#2d6a4f;
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    transition:0.2s;
+}
+
+.nav-btn:hover{
+    transform:translateY(-2px);
+    background:#1b4332;
+}
+
+/* MAIN LAYOUT */
+
+.app-container{
+    display:flex;
+    height:calc(100vh - 70px);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:250px;
+    background:#202123;
+    color:white;
+    padding:15px;
+    display:flex;
+    flex-direction:column;
+}
+
+.new-chat-btn{
+    background:#19c37d;
+    padding:10px;
+    border-radius:6px;
+    text-decoration:none;
+    color:white;
+    text-align:center;
+    margin-bottom:15px;
+    font-weight:500;
+}
+
+.new-chat-btn:hover{
+    background:#14a46c;
+}
+
+/* CHAT LIST */
+
+.chat-item{
+    padding:10px;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+    margin-bottom:6px;
+    transition:0.2s;
+}
+
+.chat-item:hover{
+    background:#343541;
+}
+
+.active{
+    background:#444654;
+}
+
+/* CHAT AREA */
+
+.chat-box{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+}
+
+/* MESSAGES */
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+/* USER MESSAGE */
+
+.user-message{
+    background:#2d6a4f;
+    color:white;
+    padding:10px 14px;
+    border-radius:14px;
+    max-width:60%;
+    align-self:flex-end;
+}
+
+/* AI MESSAGE */
+
+.assistant-message{
+    background:#e9ecef;
+    padding:10px 14px;
+    border-radius:14px;
+    max-width:60%;
+}
+
+/* INPUT AREA */
+
+.chat-input{
+    display:flex;
+    gap:10px;
+}
+
+.chat-input input{
+    flex:1;
+    padding:12px;
+    border-radius:25px;
+    border:1px solid #ccc;
+    outline:none;
+}
+
+.chat-input button{
+    padding:12px 20px;
+    border-radius:25px;
+    border:none;
+    background:#2d6a4f;
+    color:white;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.chat-input button:hover{
+    transform:scale(1.05);
+}
+
+/* LOGIN & SIGNUP */
+
+.auth-container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+}
+
+.tagline{
+    color:#555;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    width:320px;
+    text-align:center;
+}
+
+.card h2{
+    margin-bottom:20px;
+}
+
+.card input{
+    width:100%;
+    padding:10px;
+    margin-bottom:12px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.card button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:6px;
+    background:#2d6a4f;
+    color:white;
+    cursor:pointer;
+}
+
+.card button:hover{
+    background:#1b4332;
+}
+
+.switch{
+    margin-top:10px;
+}
+
+.switch a{
+    color:#2d6a4f;
+    text-decoration:none;
+    font-weight:500;
+}
+
+/* ERROR */
+
+.error{
+    color:red;
+    margin-bottom:10px;
+}
+
+.alert{
+    background:#ffe5e5;
+    color:#c0392b;
+    padding:10px;
+    border-radius:6px;
+    margin-bottom:10px;
+}
+
+/* CHAT ANIMATION */
+
+.user-message,
+.assistant-message{
+    animation:fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE RESPONSIVE */
+
+
+
+/* MOBILE VIEW */
+
+@media (max-width:768px){
+
+.menu-btn{
+    display:block;
+}
+
+.sidebar{
+    position:fixed;
+    left:-260px;
+    top:0;
+    height:100%;
+    width:250px;
+    background:#202123;
+    transition:0.3s;
+    z-index:1000;
+}
+
+.show-sidebar{
+    left:0;
+}
+
+.app-container{
+    flex-direction:column;
+}
+
+}

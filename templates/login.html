@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+</head>
+<body>
+    <div class="auth-container">
+        <h1 class="logo">Mind Mate</h1>
+        <div class="card">
+            <h2>Welcome Back</h2>
+        
+
+            {% if error %}
+            <p class="error">{{error}}</p>
+            {% endif %}
+                    
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert">
+                {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            
+            <form method="POST">
+                <input type="email" name="email" placeholder="enter email" required>
+                <input type="password" name="password" placeholder="enter password" required>
+                <button type="submit">Login</button>
+            </form>
+             <p class="switch">
+            Don’t have an account?
+            <a href="/signup">Sign Up</a>
+        </p>
+
+        </div>
+    </div>
+</body>
+</html>

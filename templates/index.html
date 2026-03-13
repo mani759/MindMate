@@ -1,0 +1,163 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>MindMate</title>-->
+<!--    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <nav class="home-nav">-->
+<!--        <div class="logo">-->
+<!--            MindMate-->
+<!--        </div>-->
+<!--        &lt;!&ndash; <button class="nav-btn">-->
+<!--            New Chat-->
+<!--        </button> &ndash;&gt;-->
+<!--        <a href="/new_chat"class='nav-btn'>new chat</a>-->
+<!--        {% if logged_in %}-->
+<!--        -->
+<!--            <a href="{{url_for('logout')}}" class="nav-btn">Logout</a>-->
+<!--        {% else %}-->
+<!--        <a href="/login" class="nav-btn">Login</a>-->
+<!--         <a href="/signup" class="nav-btn">SignUp</a>-->
+<!--         {% endif %}-->
+<!--    </nav>-->
+
+<!--    -->
+<!--    -->
+<!--<div class="app-container">-->
+<!--<div class="sidebar">-->
+
+<!--    <a href="/new_chat" class="new-chat-btn">+ New Chat</a>-->
+
+<!--     {% for chat_id in chats %}-->
+<!--            <a href="/switch_chat/{{ chat_id }}"-->
+<!--               class="chat-item {% if chat_id == current_chat %}active{% endif %}">-->
+<!--               Chat {{ loop.index }}-->
+<!--            </a>-->
+<!--    {%endfor%}-->
+
+
+<!--</div>-->
+<!--<div class="chat-box">-->
+<!--        <div class="messages" id="messages">-->
+<!--            {% if chat_history|length == 0 %}-->
+<!--            <div class="bot-message">-->
+<!--              Hi, I'm MindMate 🌿-->
+<!--              How are you feeling today?-->
+<!--            </div>-->
+<!--            {% endif %}-->
+<!--            {% for msg in chat_history %}-->
+<!--            <div class="{{msg.role}}-message">-->
+<!--            {{msg.content}}-->
+<!--            </div>-->
+<!--            {%endfor%}-->
+<!--           -->
+<!--        </div>-->
+
+<!--        <form class="chat-input" method="POST" action="/chat">-->
+<!--            <input type="text" name="message" placeholder="type how you feel today" required>-->
+<!--            <button type="submit">Send</button>-->
+<!--        </form>-->
+<!--        -->
+<!--    </div>-->
+
+
+<!--</div>-->
+<!--</body>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+<nav class="home-nav">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div class="logo">
+        MindMate
+    </div>
+
+    <a href="/new_chat" class="nav-btn">New Chat</a>
+
+    {% if logged_in %}
+        <a href="{{ url_for('logout') }}" class="nav-btn">Logout</a>
+    {% else %}
+        <a href="/login" class="nav-btn">Login</a>
+        <a href="/signup" class="nav-btn">SignUp</a>
+    {% endif %}
+</nav>
+
+<div class="app-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <a href="/new_chat" class="new-chat-btn">+ New Chat</a>
+
+        {% for chat_id in chats %}
+            <a href="/switch_chat/{{ chat_id }}"
+               class="chat-item {% if chat_id == current_chat %}active{% endif %}">
+               Chat {{ loop.index }}
+            </a>
+        {% endfor %}
+
+    </div>
+
+
+    <!-- Chat Area -->
+    <div class="chat-box">
+
+        <div class="messages" id="messages">
+
+            {% if chat_history|length == 0 %}
+            <div class="bot-message">
+                Hi, I'm MindMate 🌿 <br>
+                How are you feeling today?
+            </div>
+            {% endif %}
+
+            {% for msg in chat_history %}
+            <div class="{{ msg.role }}-message">
+                {{ msg.content }}
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <form class="chat-input" method="POST" action="/chat">
+            <input type="text" name="message" placeholder="Type how you feel today..." required>
+            <button type="submit">Send</button>
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleSidebar(){
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.classList.toggle("show-sidebar");
+}
+
+document.addEventListener("click", function(event){
+
+    const sidebar = document.querySelector(".sidebar");
+    const menuBtn = document.querySelector(".menu-btn");
+
+    if(!sidebar.contains(event.target) && !menuBtn.contains(event.target)){
+        sidebar.classList.remove("show-sidebar");
+    }
+
+});
+
+</script>
+</body>
+</html>

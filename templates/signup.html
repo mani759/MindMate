@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link rel='stylesheet' href="{{url_for('static',filename='styles.css')}}">
+</head>
+<body>
+    <div class="auth-container">
+        <h1 class="logo">🌿 MindMate</h1>
+        <p class="tagline">Your private emotional support companion</p>
+
+        <div class="card">
+            <h2>Create Account</h2>
+
+            {% if error %}
+            <p class="error">{{error}}</p>
+            {% endif %}
+
+            <form method="POST">
+                <input type="email" name="email" placeholder="Email adress" required>
+                <input type="password" name="password" placeholder="Enter password" required>
+                <button type="submit">SignUp</button>
+            </form>
+            
+            <p class="switch">
+            Already have an account?
+            <a href="/login">Login</a>
+        </p>
+        </div>
+
+
+
+    </div>
+</body>
+</html>
