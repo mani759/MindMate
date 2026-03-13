@@ -9,18 +9,28 @@ app=Flask(__name__)
 
 app.secret_key="secret_key"
 
-OPENROUTER_API_KEY="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"
 
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 #firebase initilization
-if os.getenv('FIREBASE_KEY'):
-    firebase_key=json.load(os.environ["FIREBASE_KEY"])
-    cred=credentials.Certificate("firebase_key")
 
+firebase_key = os.getenv("FIREBASE_KEY")
+
+if firebase_key:
+    firebase_dict = json.loads(firebase_key)
+    cred = credentials.Certificate(firebase_dict)
 else:
-    cred=credentials.Certificate("firebase_key1.json")
+    cred = credentials.Certificate("firebase_key1.json")
 
-if not firebase_admin._apps:
-    firebase_admin.initialize_app(cred)
+firebase_admin.initialize_app(cred)
+# if os.getenv('FIREBASE_KEY'):
+#     firebase_key=json.load(os.environ["FIREBASE_KEY"])
+#     cred=credentials.Certificate("firebase_key")
+#
+# else:
+#     cred=credentials.Certificate("firebase_key1.json")
+#
+# if not firebase_admin._apps:
+#     firebase_admin.initialize_app(cred)
 
 db=firestore.client()
 
