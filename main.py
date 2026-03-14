@@ -82,28 +82,80 @@ def signup():
     return render_template("signup.html")
 
 
-@app.route("/login",methods=['GET','POST'])
-def login():
-    if request.method=='POST':
-        email=request.form['email']
+# @app.route("/login",methods=['GET','POST'])
+# def login():
+#     if request.method=='POST':
+#         email=request.form['email']
+#
+#
+#         try:
+#             user=auth.get_user_by_email(email)
+#             session['user_id']=user.uid
+#             chat_ref=db.collection("chats").document()
+#             chat_ref.set({
+#                 "user_id":user.uid,
+#                 "title":"New chat",
+#                 "messages": [],
+#             })
+#
+#             session['current_chat']=chat_ref.id
+#
+#             return redirect("/")
+#
+#         except:
+#             return render_template("login.html",error="user not found")
+#
+#     return render_template("login.html")
 
+import os
+import requests
+from flask import request, render_template, redirect, session
+
+API_KEY = os.getenv("FIREBASE_API_KEY")
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+
+    if request.method == 'POST':
+
+        email = request.form['email']
+        password = request.form['password']
+
+        url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={API_KEY}"
+
+        payload = {
+            "email": email,
+            "password": password,
+            "returnSecureToken": True
+        }
 
         try:
-            user=auth.get_user_by_email(email)
-            session['user_id']=user.uid
-            chat_ref=db.collection("chats").document()
-            chat_ref.set({
-                "user_id":user.uid,
-                "title":"New chat",
-                "messages": [],
-            })
+            res = requests.post(url, json=payload)
+            data = res.json()
 
-            session['current_chat']=chat_ref.id
+            # If login successful
+            if "idToken" in data:
 
-            return redirect("/")
+                user = auth.get_user_by_email(email)
 
-        except:
-            return render_template("login.html",error="user not found")
+                session['user_id'] = user.uid
+
+                chat_ref = db.collection("chats").document()
+                chat_ref.set({
+                    "user_id": user.uid,
+                    "title": "New chat",
+                    "messages": [],
+                })
+
+                session['current_chat'] = chat_ref.id
+
+                return redirect("/")
+
+            else:
+                return render_template("login.html", error="Invalid email or password")
+
+        except Exception as e:
+            return render_template("login.html", error="Login failed. Try again.")
 
     return render_template("login.html")
 
