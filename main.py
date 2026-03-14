@@ -155,10 +155,10 @@ def login():
 #     return render_template("login.html")
 #
 #
-# @app.route("/logout")
-# def logout():
-#     session.pop("user_id", None)
-#     return redirect("/")
+@app.route("/logout")
+def logout():
+    session.pop("user_id", None)
+    return redirect("/")
 
 # @app.route("/chat",methods=['POST'])
 # def chat():
